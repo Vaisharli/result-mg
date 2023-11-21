@@ -11,11 +11,10 @@
     }
 ?>
 
-
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <title>Admin (course creation)</title>
+    <title>Admin (section creation)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include '../include/link.php' ?>
@@ -28,17 +27,17 @@
         <section class="wrapper">
           <div class="row">
             <div class="col-lg-12">
-              <h3 class="page-header"><i class="fa fa-laptop"></i>Create Course</h3>
+              <h3 class="page-header"><i class="fa fa-laptop"></i>Section Creation</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
-                <li><i class="fa fa-laptop"></i>Course</li>
+                <li><i class="fa fa-laptop"></i>Section</li>
               </ol>
             </div>
           </div>
             <div class="col-md-6 portlets">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <div class="pull-left">Enter Course information</div>
+                  <div class="pull-left">Enter Section Information</div>
                   <div class="clearfix"></div>
                 </div>
                 <div class="panel-body">
@@ -52,31 +51,24 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-lg-2" for="code">Code</label>
+                          <label class="control-label col-lg-2">Semester</label>
                           <div class="col-lg-10">
-                              <input type="text" name = "code" class="form-control">
+                            <select name="semester" id="" class="form-control">
+                              <option value="">- Choose Semester -</option>
+                              <?php  
+                                $i = 1;
+                                while(8 >= $i){ ?>
+                                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                  <?php  $i++; 
+                                }
+                              ?>
+                            </select>
                           </div>
                         </div>
                         <div class="form-group">
-                          <label class="control-label col-lg-2" for="credit">Credit</label>
-                          <div class="col-lg-10">
-                              <input type="text" name = "credit" class="form-control">
+                          <div class="col-lg-offset-2 col-lg-9">
+                            <button type="submit" name = "submit" class="btn btn-primary">Create</button>
                           </div>
-                        </div>
-                        <div class="form-group">
-                          <label class="control-label col-lg-2">Type</label>
-                          <div class="col-lg-10">
-                          <select class="form-control" name="type" id="">
-                            <option value="">- Choose Course Type -</option>
-                            <option value="theory">Theory</option>
-                            <option value="lab">Lab</option>
-                          </select>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-offset-2 col-lg-9">
-                              <button type="submit" name = "submit" class="btn btn-primary">Create</button>
-                            </div>
                         </div>
                       </form>
                     </div>
@@ -91,7 +83,7 @@
     <script>
       $(document).ready(function(){
         $('form').submit(function(){
-          alert("course has been created");
+          alert("Section has been created");
         });
       });
     </script>
@@ -105,11 +97,9 @@
     {
         //recvd data from input/control
         $name = $_POST['name'];
-        $code = $_POST['code'];
-        $credit = $_POST['credit'];
-        $type = $_POST['type'];
+        $semester = $_POST['semester'];
         //db query
-        $query = "INSERT INTO `courses`(`name`, `code`, `credit`, `type`) VALUES ('$name','$code', '$credit', '$type')";
+        $query = "INSERT INTO `sections`( `name`, `semester`) VALUES ('$name', '$semester')";
         if(mysqli_query($conn, $query))
         {
             echo "successfully created!!";
